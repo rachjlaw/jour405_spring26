@@ -37,7 +37,9 @@ team_aces |> mutate(percentile = ntile(total_aces, 100))
 
 Write a couple of sentences that puts Maryland into context with the other teams in the dataset. You can do some Internet research to help with this.
 
+According to the percentile data, Maryland was better than 95 percent of NCAA DI Volleyball teams. This is surprising because the Terps were still 14-17 overall, 5-15 in conference play and missed both the Big Ten and NCAA Championships. 
 
+On the flip side, Creighton, who only scored one more service ace than Maryland, were undefeated in conference play and made it to the regional final of the NCAA championship. The data (perhaps accidentally) shows that service aces do not show the talent/winningness of a team. 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
 
