@@ -23,7 +23,7 @@ crimes <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads
 
 ### Task 3: Use janitor to clean up the column names
 
-
+See task 2. 
 
 ### Task 4: Calculate the total crime rate for each year (picking our unit!)
 
@@ -36,16 +36,16 @@ crimes |> mutate(total_rate = grand_total/population * 10000)
 ### Task 5: Calculate the violent and property crime rates for each year (same unit)
 
 ```{r}
-crimes_with_rates <- crimes |> mutate(violent_rate = violent_crime_total/population * 10000, property_rate = property_crime_total/population * 10000)
+crimes_with_rates <- crimes |> mutate(violent_rate = violent_crime_total/population * 10000, property_rate = property_crime_total/population * 10000, total_rate = grand_total/population * 10000)
 ```
-
+(I added the total rate to the end of the table already created so I can see them all in one go)
 
 
 ### Task 6: Describe our results
 
 Write a few sentences about what you found in the data. What years had the highest crime rates? What years had the lowest crime rates? Does the pattern match your expectations?
 
-
+1980 and 1981 had the highest crime rates, while 2020 had the lowest crime rates across the board. I somewhat expected this, especially after what Derek said about the effects of Crack/Cocaine on crime in 1980s. Now, in the 2020s, there is less of a popular coorelation between drug abuse and crimes, other than having certain drugs being a crime. I'm also shocked by some of this data because what's considered a crime between now anad the 80s is vastly different. For example, I think that policing now is pretty strict, and it seems like (in the media), people get arressted for all sorts of things. That would make me think that crime rates would go up. 
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
