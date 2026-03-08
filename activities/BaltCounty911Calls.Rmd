@@ -1,6 +1,6 @@
 ---
 title: "Baltimore County 911 Overdose Calls Analysis"
-author: "YOUR NAME HERE"
+author: "Rachel Lawrence"
 ---
 
 ```{r setup, include=FALSE}
@@ -74,7 +74,7 @@ summary(daily_calls$call_count)
 
 Let's visualize the time series of daily calls. What patterns do you see? If you had to draw horizontal lines that would highlight unusual days, where would those lines be?
 
-ANSWER HERE
+I would draw a line under 2/8/22, as 30 calls were placed in just those first three days. I looked at the calendar for this February as well, expecting those three days to be a weekend, but instead, it was Sunday-Monday-Tuesday. I would expect more 911 calls to be placed over the weekend, so I considered that "unusual."
 
 ```{r daily-calls-plot}
 # Plot daily call volume
@@ -137,7 +137,7 @@ unusual_days |>
 
 Let's visualize these unusual days in the context of the full dataset. How do they differ from your answer on Task 3?
 
-ANSWER HERE
+
 
 ```{r plot-unusual-days}
 # Create a clean factor for the plot legend
