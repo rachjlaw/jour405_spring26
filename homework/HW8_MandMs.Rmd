@@ -12,27 +12,26 @@ library (tidyverse)
 ### Task 2: Load the M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
 
 ```{r}
-read.csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
-
+read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
+mandms <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
 ```
 
 ### Task 3: Sample 5 rows of data from the dataset
 
 ```{r}
-sample(ces$, 10)
+sample_5 <- mandms |> sample_n(5)
 ```
 
-### Task 4: Calculate the mean age and standard deviation of the sample, using either the blue or white number of M&Ms
+### Task 4: Calculate the mean and standard deviation of the sample, using either the blue or white number of M&Ms
 
 ```{r}
-
-
+sample_5 |> summarize(mean = mean(red), sd = sd(red))
 ```
 
-### Task 5: Calculate the mean age and standard deviation of the population, using the same measure as in Task 4
+### Task 5: Calculate the mean and standard deviation of the population, using the same measure as in Task 4
 
 ```{r}
-
+mandms |> summarize(mean = mean(red), sd = sd(red))
 
 ```
 
@@ -40,11 +39,12 @@ sample(ces$, 10)
 
 Compare the two sets of means and standard deviations. Are they similar?
 
-
+The means for the sample and population were pretty close, only varying by 2. The standard deviations, though, weren't super similar. The sd for the entire population was smaller than the sample size. 
 
 ### Task 7: Describe the results
 
 Write a few sentences about what you found in the data. What does this tell you about the M&Ms dataset and about the act of random sampling?
 
+The one thing that (obviously) stuck out to me was that absolutely no two packs of candy were the same, in fact, even the packs with similar amounts of candy had different amts of red and black M&Ms. I also found it interesting that the range of pieces per package was so wide; some bags had as little as 100 while others had double that. I think this shows that random sampling can really take those discrepancies into consideration, and that the mean and sd of the random sample would be close to representative. However, there is still a chance that all five samples are the five smallest of the bunch, and that could also alter the results. 
 
 When finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
