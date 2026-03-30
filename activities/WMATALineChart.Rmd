@@ -1,0 +1,66 @@
+---
+title: "WMATALineChart"
+output: html_document
+---
+
+---
+title: "Line Chart Refresher: WMATA Ridership"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## Quick Review: Making a Line Chart
+
+Let's do a quick refresher on line charts using WMATA ridership data, since a line chart will be part of your homework. This is daily bus and rail data from January 2024 through February 2025 (you may recall it from the midterm). We'll aggregate it to weekly totals so the chart is easier to read, then make a line chart.
+
+### Task 1: Load the tidyverse and the data
+
+```{r}
+library(tidyverse)
+library(lubridate)
+
+wmata <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/wmata_daily.csv")
+
+head(wmata)
+```
+
+### Task 2: Make weekly totals
+
+Daily data is noisy — weekends and holidays create big dips that make trends hard to see. Let's aggregate to weekly totals using `floor_date()` to group days into weeks, then `summarize()` to add them up.
+
+```{r}
+weekly_wmata <- wmata |>
+  mutate(week = floor_date(date, "week")) |>
+  group_by(week) |>
+  summarize(
+    weekly_total = sum(total),
+    days = n()
+  ) |>
+  filter(days == 7)  # Keep only complete weeks
+
+head(weekly_wmata)
+```
+
+### Task 3: Make a line chart
+
+Create a line chart of weekly ridership over time.
+
+```{r}
+weekly_wmata |>
+  ggplot(aes(x = week, y = weekly_total)) +
+  geom_line(color = "steelblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linetype = "dashed") +
+  scale_y_continuous(labels = scales::comma) +
+  labs(
+    title = "Weekly WMATA Ridership (2024-2025)",
+    x = "Week",
+    y = "Total Riders"
+  ) +
+  theme_minimal()
+```
+
+**Answer this question:** Describe the trend you see. Is ridership going up, down, or staying flat? What are the big dips, and what might explain them? What would you want to know before writing a story about Metro weekly ridership trends?
+
+Ridership is very slightly generally decreasing, but I think most of the big dips could be explained by time of year and season. The biggest dips are in super late December and early January during the busiest holiday season. People are most likely staying home with their families between Christmas and New Years (and even near Thanksgiving), thus not taking the metro at all. The highest parts are during college season, and the metro system is a very popular method of transportation for students, which explains the biggest and highest parts of the line graph. If I were writing a story about this, I would compare similar times over different years. For example, is rishership higher in the summer of 2025 than it was in 2024?
