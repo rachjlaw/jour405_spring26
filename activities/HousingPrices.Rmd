@@ -163,4 +163,4 @@ After disucssion of the results, each person writes a couple of sentences for th
 
 A new light rail through a local neighborhood may be affecting housing prices according to a study done by local officials. 
 
-Before the light rail was built, the average price of 14 homes in the area was about $285 thousand. After its construction, those same houses would sell for an average of $304 thousand, increasing the average price for them by $19.5 thousand, according to data provided by the city. The data has a conference interval of 95%, meaning it's likely that housing prices will continue to rise by 6.8% in the light rails area. 
+Before the light rail was built, the average price of 14 homes in the area was about $285 thousand. After its construction, those same houses would sell for an average of $304 thousand, increasing the average price for them by $19.5 thousand, according to data provided by the city. The data has a confidence interval of 95%, meaning it's likely that housing prices will continue to rise by 6.8% in the light rails area. 
