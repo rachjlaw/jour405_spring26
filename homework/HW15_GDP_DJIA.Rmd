@@ -1,5 +1,6 @@
 ---
 title: "HW15_GDP_DJIA"
+name: Rachel Lawrence
 ---
 
 What is the relationship between the stock market, represented by the Dow Jones Industrial Average, or DJIA, and the Gross Domestic Product, a measure of the U.S. economic activity?
@@ -13,6 +14,7 @@ Your task in this assignment will be to examine the relationship between those t
 ### Task 1: Load the tidyverse
 
 ```{r}
+library(tidyverse)
 ```
 
 ### Task 2: Load the GDP and DJIA data
@@ -20,6 +22,7 @@ Your task in this assignment will be to examine the relationship between those t
 Load the GDP data from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/gdp_djia.csv
 
 ```{r}
+gdp_data <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/gdp_djia.csv")
 ```
 
 ### Task 3: Calculate the correlation coefficient
@@ -27,6 +30,7 @@ Load the GDP data from https://raw.githubusercontent.com/dwillis/jour405/refs/he
 Use the `cor()` function to calculate the correlation coefficient between the DJIA and GDP.
 
 ```{r}
+gdp_data |> summarize(correlation = cor(GDP, DJIA, method="pearson"))
 ```
 
 ### Task 4: Create a scatterplot
@@ -34,12 +38,18 @@ Use the `cor()` function to calculate the correlation coefficient between the DJ
 Use the `ggplot()` function to create a scatterplot of the DJIA and GDP. Be sure to label your axes and add a title.
 
 ```{r}
+gdp_data |> 
+  ggplot() +
+  geom_point(aes(x=DJIA, y=GDP)) +
+  geom_smooth(aes(x=DJIA, y=GDP), method="lm") +
+  ggtitle("Correlation between the Stock Market and US GDP")
 ```
 
 ### Task 5: Describe our results
 
 Write a few sentences about the relationship between the DJIA and GDP. Is there a strong correlation between the two variables? What does the scatterplot show?
 
+The scatterplot (and the correlation coefficient) show that there is a strong relationship between the national GDP and the Dow Jones Industrial average. The scatterplot specifically shows that as the stock market average increases, the national GDP increases as well. 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
 
