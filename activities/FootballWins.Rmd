@@ -1,6 +1,7 @@
 
 ---
 title: "Multiple Regression Analysis in R"
+Rachel Lawrence
 ---
 
 # Introduction
@@ -9,7 +10,7 @@ Multiple regression analysis is a statistical method used to understand the rela
 
 ```{r setup}
 library(tidyverse)
-#install.packages('corrplot')
+install.packages('corrplot')
 library(corrplot)
 ```
 
@@ -54,7 +55,7 @@ The coefficients tell us the estimated effect of each independent variable on th
 
 Is this a useful model, based on what you've seen? Why?
 
-ANSWER HERE
+I'd say this model is useful because it sort of acts as a check for the coefficients. The residuals shows concisely that even though there are deviations, the model is accurate and helpful. 
 
 ## Correlation Analysis
 
@@ -64,6 +65,7 @@ After building the model, we calculate the correlation matrix for our variables 
 selected_vars <- teams |>  select(`Yards Gained`, Takeaways, `Points Scored`, Wins)
 cor(selected_vars)
 ```
+
 
 ## Visualization of Correlation Matrix
 
@@ -80,8 +82,18 @@ The results from our correlation analysis show the strength of the relationships
 
 Which of these three factors - Yards Gained, Takeaways and Points Scored - have the most impact on wins? Are there any that do not seem impactful at all?
 
-ANSWER HERE
+```{r}
+model_2 <- lm(Wins ~ `Yards Allowed` + Takeaways + `Points Scored`, data = teams)
+summary(model_2)
+
+```
+```{r}
+selected_vars <- teams |>  select(`Yards Allowed`, Takeaways, `Points Scored`, Wins)
+cor(selected_vars)
+corr_matrix <- cor(selected_vars)
+corrplot(corr_matrix, method = "circle")
+```
 
 ## Using the Model (3 points)
 
-Without using the words "multiple regression model", describe how you could use this model to cover a team or game.
+I specifically designed this model with defense in mind, and it shows that there isn't super significant correlation between yards allowed and points scored, or takeaways and wins. To me, this shows that defense does not in fact win championships, as there isn't a lot of correlation between actually wining and intense parts of defense. 
