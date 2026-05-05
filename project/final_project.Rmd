@@ -2,14 +2,40 @@ RACHEL LAWRENCE
 JOUR 405
 Final Project
 
-My hypothesis: Films that win Best Picture at the Oscars are more highly rated on one fan reaction site than some others
+My hypothesis: Best Picture winners at the Oscars don't reflect the opinions of the millions of non-critic audience members.  
 
-https://docs.google.com/spreadsheets/d/e/2PACX-1vQ79TBy2rv3gVB-ITBczjPtA0h-_ZHmeT-PzIMRF4_7gmdGH1DPCBBCWJYzOXwPLeAsBrwg_jbdSMDS/pubhtml
+```{r}
+library(tidyverse)
+```
+
+```{r}
+imdb_rt <- read_csv("imdb_rt_oscars.csv")
+```
+
+April 22nd: The Tests I Can Run
+
+To prove my hypothesis, there are a lot of tests that would be valuable. To start, I'd simply examine the mean and quartiles of the scores for IMBD over those of Rotten Tomatoes. 
+
+```{r}
+summary(imdb_rt$`IMDb_Rating (Fan Rating)`)
+```
+
+```{r}
+summary(imdb_rt$`RT Rating (Critic)`)
+```
+
+On average, movie critics (via Rotten Tomatoes) gave movies 1.296 higher of a rating than fans. Obviously, critics were harsher with a lower minimum rating of only 4.2 out of 10, where fans were more generous to Best Picture winners they didn't enjoy. 
 
 
-Above is a link to my data spreadsheet so far. I am collected 25 years of data on my own. (I wasn't able to make as much progress on this as I had hoped due to some issues going on in my personal life)
+I used a scatterplot next to visualize a potential relationship between Fan Ratings and Critic Ratings. I included a line of best fit, but it was basically useless. There is virtually no relationship between the two. 
 
-I think both the average viewer rating of each film will be the most important column because that statistic will serve as the baseline of my experiement. What I think is missing currently (besides the obvious: the ratings so far) is a way to equate them. For example, Letterboxd only presents its data out of five stars, where Rotten Tomatoes gives a percentage. 
+```{r}
+imdb_rt |>
+  ggplot(aes(x = `IMDb_Rating (Fan Rating)`, y = `RT Rating (Critic)`)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "pink")
+```
 
-One question I still have is about showing the same statsitcs even as the academy shifted from only nominating 5 movies to looking at 9 or 10. Prof. Willis said to use percentile rank across eras, but will that number be altered because there almost double the movies in one year than there are in others?
+
+
 
