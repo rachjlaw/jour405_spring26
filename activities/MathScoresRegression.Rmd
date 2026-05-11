@@ -33,8 +33,7 @@ schools |>
 
 The scatterplot shows the overall trend of the relationship between the FARMS percentage and the math test scores. The red line represents the linear regression line, which helps us understand the average relationship between the two variables. Based on what you see here, what's the relationship between FARMS percentage and math test scores?
 
-ANSWER HERE
-
+As FARMS precentage increases, the percent of those who met or exceed math expectation is expected to inscrease as well. 
 
 ### Task: Linear Regression Model (3 points)
 
@@ -52,7 +51,7 @@ In the middle, you can see the (Intercept) is 59.57897 and the FARMS coefficient
 
 Based on what you've learned so far, is this model worth using? What does it tell us about the nature of the relationship between FARMS percentage and math scores?
 
-ANSWER HERE
+I think this model is worth using because it proves that there is a positive relationship between FARMS and meeting expectations. The really small p-value also shows that the relationship is most likely due to causation. 
 
 ### Task: Identifying Schools with Biggest Residuals (2 points)
 
@@ -77,10 +76,12 @@ schools <- schools |>
 ```
 The schools with the biggest positive residuals are performing better than expected, while the schools with the biggest negative residuals are performing worse than expected, based on their FARMS percentage. Look at the absolute values of the residuals; what are the largest differences between the predicted result and the actual math scores?
 
-ANSWER HERE
+The largest differences between the predicted and actual scores are where schools who are expecting to score well are doing worse than said expectation. 
 
 ## Task: Evaluate the model (3 points)
 
 A school board member has said at a meeting that elementary schools with fewer students on free and reduced price meals do better on standardized math tests. Describe what conclusions you'd draw from this model's results and how it would influence a story pitch about the school board member and math scores.
 
-ANSWER HERE
+The schoolboard member is technically supported by the evidence, but his claim is a little oversimplified. I'd draw the conclusion that kids being fed supports better test scores, and that the linear regression model supports that.
+
+For an article about this, I'd zero in on the schools who are performing worse than they are expected to due to the model. 
