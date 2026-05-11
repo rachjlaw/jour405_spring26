@@ -1,0 +1,12 @@
+---
+title: "Final"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+data <- read_csv("Final Project BASE Stats - Lawrence - Copy of Sheet1.csv"
+```

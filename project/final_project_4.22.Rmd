@@ -13,7 +13,7 @@ imdb_rt <- read_csv("imdb_rt_oscars.csv")
 ```
 
 April 22nd: The Tests I Can Run
-
+________________________________
 To prove my hypothesis, there are a lot of tests that would be valuable. To start, I'd simply examine the mean and quartiles of the scores for IMBD over those of Rotten Tomatoes. 
 
 ```{r}
@@ -27,15 +27,10 @@ summary(imdb_rt$`RT Rating (Critic)`)
 On average, movie critics (via Rotten Tomatoes) gave movies 1.296 higher of a rating than fans. Obviously, critics were harsher with a lower minimum rating of only 4.2 out of 10, where fans were more generous to Best Picture winners they didn't enjoy. 
 
 
-I used a scatterplot next to visualize a potential relationship between Fan Ratings and Critic Ratings. I included a line of best fit, but it was basically useless. There is virtually no relationship between the two. 
+Next, to ensure there's no relation between the two, I ran a correlation model. 
 
 ```{r}
-imdb_rt |>
-  ggplot(aes(x = `IMDb_Rating (Fan Rating)`, y = `RT Rating (Critic)`)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, color = "pink")
+imdb_rt |> summarize(correlation = cor(`IMDb_Rating (Fan Rating)`, `RT Rating (Critic)`, method="pearson"))
 ```
 
-
-
-
+This definetly surprised me. I was expected more of a disconnect between the two but the correlation between fan and critic ratings is decently strong. 
