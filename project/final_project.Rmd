@@ -1,0 +1,69 @@
+RACHEL LAWRENCE
+JOUR 405
+Final Project
+
+My hypothesis: Best Picture winners at the Oscars don't reflect the opinions of the millions of non-critic audience members.  
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+imdb_rt <- read_csv("imdb_rt_oscars.csv")
+```
+________________________________________________________________________________________________
+April 21st: The Tests I Can Run
+
+To prove my hypothesis, there are a lot of tests that would be valuable. To start, I'd simply examine the mean and quartiles of the scores for IMBD over those of Rotten Tomatoes. 
+
+```{r}
+summary(imdb_rt$`IMDb_Rating (Fan Rating)`)
+```
+
+```{r}
+summary(imdb_rt$`RT Rating (Critic)`)
+```
+
+On average, movie critics (via Rotten Tomatoes) gave movies 1.296 higher of a rating than fans. Obviously, critics were harsher with a lower minimum rating of only 4.2 out of 10, where fans were more generous to Best Picture winners they didn't enjoy. 
+
+
+Next, to ensure there's no relation between the two, I ran a correlation model. 
+
+```{r}
+imdb_rt |> summarize(correlation = cor(`IMDb_Rating (Fan Rating)`, `RT Rating (Critic)`, method="pearson"))
+```
+
+This definitely surprised me. I was expected more of a disconnect between the two but the correlation between fan and critic ratings is decently strong. 
+____________________________________________________________________________________________
+April 27th: Trials, Errors and Lessons
+
+Willis suggested I add a paired t-test on the difference between critic and fan ratings and a linear regression. I also chose to add a line graph highlight ratings over the years. 
+
+```{r}
+t.test(imdb_rt$`IMDb_Rating (Fan Rating)`, imdb_rt$`RT Rating (Critic)`, paired = TRUE)
+
+```
+```{r}
+model <- lm(`RT Rating (Critic)` ~ `IMDb_Rating (Fan Rating)`, data = imdb_rt)
+```
+
+```{r}
+imdb_rt$Year <- as.numeric(imdb_rt$Year)
+imdb_rt$IMDb_Rating <- as.numeric(imdb_rt$`IMDb_Rating (Fan Rating)`)
+imdb_rt$RT_Rating <- as.numeric(imdb_rt$`RT Rating (Critic)`)
+```
+
+```{r}
+imdb_rt_long <- imdb_rt %>%
+  pivot_longer(
+    cols = c(`IMDb_Rating (Fan Rating)`, `RT Rating (Critic)`),
+    names_to = "Rating_Type",
+    values_to = "Score"
+  )
+ggplot(imdb_rt_long, aes(x = Year, y = Score, color = Rating_Type)) +
+  geom_line(size = 1.2) +
+  geom_point() +
+  theme_minimal()
+```
+I chose to also add this line graph, showing how Fans vs. Critics rated Best Picture winners over time. What I noticed here, just like I saw from the standard summary model, is that critics had a much more dramatic range of ratings. Critics seemed to be a lot harsher than fans until about the 1960s. Around 1975, critics became a lot kinder to movies than fans. It was only really in the early 2000s where fans and critics somewhat agreed. 
+
