@@ -2,8 +2,8 @@ RACHEL LAWRENCE
 JOUR 405
 Final Project
 
-My hypothesis: Best Picture winners at the Oscars don't reflect the opinions of the millions of non-critic audience members.  
-
+My old hypothesis: Best Picture winners at the Oscars don't reflect the opinions of the millions of non-critic audience members.  
+My new hypothesis: Critics rate Oscars' Best Picture winners higher than fans do. 
 ```{r}
 library(tidyverse)
 ```
@@ -24,28 +24,30 @@ summary(imdb_rt$`IMDb_Rating (Fan Rating)`)
 summary(imdb_rt$`RT Rating (Critic)`)
 ```
 
-On average, movie critics (via Rotten Tomatoes) gave movies 1.296 higher of a rating than fans. Obviously, critics were harsher with a lower minimum rating of only 4.2 out of 10, where fans were more generous to Best Picture winners they didn't enjoy. 
+On average, movie critics (via Rotten Tomatoes) gave movies 1.296 higher of a rating than fans. Obviously, critics had harsher reviews of lower rated movies, with a lower minimum rating of only 4.2 out of 10, where fans were more generous to Best Picture winners they didn't enjoy. 
 
 
-Next, to ensure there's no relation between the two, I ran a correlation model. 
+Next, to test the relationship between the two, I ran a correlation model. 
 
 ```{r}
 imdb_rt |> summarize(correlation = cor(`IMDb_Rating (Fan Rating)`, `RT Rating (Critic)`, method="pearson"))
 ```
-
 This definitely surprised me. I was expected more of a disconnect between the two but the correlation between fan and critic ratings is decently strong. 
 ____________________________________________________________________________________________
 April 27th: Trials, Errors and Lessons
 
-Willis suggested I add a paired t-test on the difference between critic and fan ratings and a linear regression. I also chose to add a line graph highlight ratings over the years. 
+Willis suggested I add a paired t-test on the difference between critic and fan ratings and a linear regression to show the statistical significane between fan and critic ratings. I also chose to add a line graph highlight ratings over the years. 
 
 ```{r}
 t.test(imdb_rt$`IMDb_Rating (Fan Rating)`, imdb_rt$`RT Rating (Critic)`, paired = TRUE)
 
 ```
+
 ```{r}
 model <- lm(`RT Rating (Critic)` ~ `IMDb_Rating (Fan Rating)`, data = imdb_rt)
+summary(model)
 ```
+According to the model, critic ratings are about 1.23 points higher than fans, just like the standard summary showed. The p-value stuck out the most to me in this regression model, esepcially because the p-value for the Fan Ratings is so low, meaning its statistically significant. This proves that one could almost always predict the critic rating of a movie based on a fan rating. 
 
 ```{r}
 imdb_rt$Year <- as.numeric(imdb_rt$Year)
@@ -63,7 +65,20 @@ imdb_rt_long <- imdb_rt %>%
 ggplot(imdb_rt_long, aes(x = Year, y = Score, color = Rating_Type)) +
   geom_line(size = 1.2) +
   geom_point() +
-  theme_minimal()
+  theme_minimal() +
+  labs(x = "Year", y = "Rating (1-10 scale)", title = "Critic vs. Fan Ratings of Best Picture Ratings")
 ```
-I chose to also add this line graph, showing how Fans vs. Critics rated Best Picture winners over time. What I noticed here, just like I saw from the standard summary model, is that critics had a much more dramatic range of ratings. Critics seemed to be a lot harsher than fans until about the 1960s. Around 1975, critics became a lot kinder to movies than fans. It was only really in the early 2000s where fans and critics somewhat agreed. 
+Generally, critics rated Best Picture winners higher than fans, especially after the 1960s. Before that time period, there were a few ratings that stuck out, specifically in 1929 (The Broadway Melody) and in 1952 (The Greatest Show On Earth, ironically). What I also noticed from the line graph is that critics follows the general flow of the Fan ratings, again, about 1.23 points higher. The ratings between the Early 80s and 200 nearly follow the same pattern. 
 
+
+Overall, I'd say my hypothesis is proved. Not only do critics rate Oscar winners better than fans on average, but the statistical relationship between fan and critic ratings shows that this is a repetive case over nearly the entire history of the Oscars.
+______________________________________________________________________________________
+May 13 - Story Pitch
+
+Best Picture winners at the Oscars are generally more favored by Rotten Tomatoes critics than they are by IMDB fans. This is supported by the median and average scores of winners by critics versus fans, a regression model proving the statistical significance of the 1.23 point spread between them, and a line graph highlighting the consistent higher rating by critics over fans. 
+
+I think the most interesting angle for a story like this would be years/films where critics and fans are closer to agreeing than usual, specifically in 2000 where both fans and critics gave the movie Gladiator an 8.5/10. What was so special about that movie that fans voted more positively than normal or when critics shied away from 9.0s?
+
+One potential issue with highlighting one specific movie is that it somewhat discounts the rest of the data. Why is a 1.23 point spread between critics and fans so important if at the turn of the century, they agreed on a rating? I'd combat this by highlighting the staitiscal significane of the fan ratings, especially mentioning that critic ratings is almost always predictable based on what IMDb fans gave it. Gladiator is a very special case. 
+
+I'd specifically interview local "movie buffs" about their opinions on movie winners (i.e. UMD Veritas, or the Maryland chapter of the Video Consortium), and if they think critics were too harsh on Gladiator or if IMDb users were too kind. I'd also corroborate Rotten Tomatoes written reviews about the movie to see if there were any quotes that would specifically point to a reason why they dipped in their average ratings.
